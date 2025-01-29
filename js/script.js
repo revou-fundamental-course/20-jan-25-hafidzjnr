@@ -16,6 +16,7 @@ document.getElementById('bmi-form').addEventListener('submit', function (e) {
   // Hitung BMI
   const bmi = (weight / ((height / 100) ** 2)).toFixed(2);
   const category = getBmiCategory(bmi);
+  const healthRisks = getHealthRisks(category); // Dapatkan risiko penyakit
 
   // Tentukan warna berdasarkan kategori
   const color = category === 'Kelebihan Berat Badan' || category === 'Obesitas' ? 'red' : 'green';
@@ -24,7 +25,8 @@ document.getElementById('bmi-form').addEventListener('submit', function (e) {
   const resultMessage = 
     `Jenis Kelamin: ${gender === 'male' ? 'Laki-Laki' : 'Wanita'}\n` +
     `Usia: ${age} tahun\n` +
-    `BMI Anda: ${bmi}\nKategori: ${category}`;
+    `BMI Anda: ${bmi}\nKategori: ${category}\n` +
+    `${healthRisks}`;
   
   displayResult(resultMessage.replace(/\n/g, '<br>'), color);
 
@@ -71,6 +73,22 @@ function getBmiCategory(bmi) {
     return 'Kelebihan Berat Badan';
   } else {
     return 'Obesitas';
+  }
+}
+
+// Fungsi untuk menentukan risiko penyakit berdasarkan kategori BMI
+function getHealthRisks(category) {
+  switch (category) {
+    case 'Kekurangan Berat Badan':
+      return 'Risiko: Malnutrisi, osteoporosis, atau anemia.';
+    case 'Berat Badan Normal':
+      return 'Risiko penyakit relatif rendah. Jaga pola hidup sehat.';
+    case 'Kelebihan Berat Badan':
+      return 'Risiko: Diabetes tipe 2, hipertensi, atau penyakit jantung.';
+    case 'Obesitas':
+      return 'Risiko: Diabetes tipe 2, penyakit jantung, tekanan darah tinggi, dan stroke.';
+    default:
+      return 'Tidak ada data risiko.';
   }
 }
 
