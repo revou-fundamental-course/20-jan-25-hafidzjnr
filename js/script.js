@@ -18,8 +18,15 @@ document.getElementById('bmi-form').addEventListener('submit', function (e) {
   const category = getBmiCategory(bmi);
   const healthRisks = getHealthRisks(category); // Dapatkan risiko penyakit
 
-  // Tentukan warna berdasarkan kategori
-  const color = category === 'Kelebihan Berat Badan' || category === 'Obesitas' ? 'red' : 'green';
+    // Tentukan warna berdasarkan kategori
+    let color;
+    if (category === 'Kelebihan Berat Badan' || category === 'Obesitas') {
+      color = 'red';
+    } else if (category === 'Kekurangan Berat Badan') {
+      color = 'orange';
+    } else {
+      color = 'green';
+    }
 
   // Tampilkan hasil
   const resultMessage = 
@@ -41,6 +48,7 @@ function displayResult(message, color) {
   resultDiv.innerHTML = message;
   resultDiv.style.opacity = '1';
 }
+
 
 // Fungsi untuk memvalidasi input
 function validateInput(gender, age, height, weight) {
